@@ -1,10 +1,10 @@
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 
 void print_array(int *arr, int n) {
-  for (int i = 0; i < n; i++) {
-    printf("%d ", arr[i]);
-  }
-  printf("\n");
+  for (int i = 0; i < n; i++)
+    cout << arr[i] << " ";
+  cout << endl;
 }
 
 void bubble_sort(int *arr, int n) {
@@ -37,7 +37,6 @@ void insertion_sort(int *arr, int n) {
 }
 
 void merge(int *arr, int l, int mid, int r) {
-  int i, j, k;
   int n1 = mid - l + 1;
   int n2 = r - mid;
 
@@ -48,6 +47,7 @@ void merge(int *arr, int l, int mid, int r) {
   for (int i = 0; i < n2; i++)
     R[i] = arr[mid + 1 + i];
 
+  int i, j, k;
   i = j = 0;
   k = l;
   while (i < n1 && j < n2) {
@@ -77,10 +77,10 @@ void merge_sort(int *arr, int l, int r) {
 }
 
 int main() {
-  int arr[5] = {5, 4, 3, 2, 1};
+  int arr[] = {5, 4, 3, 2, 1, 10, 9, 8, 7, 6};
   int n = sizeof(arr) / sizeof(arr[0]);
   merge_sort(arr, 0, n - 1);
-  
+
   print_array(arr, n);
   return 0;
 }
