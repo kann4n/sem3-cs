@@ -1,12 +1,23 @@
 #include <iostream>
 using namespace std;
 
+/* helper funtions */
+
 void print_array(int *arr, int n) {
   for (int i = 0; i < n; i++)
     cout << arr[i] << " ";
   cout << endl;
 }
 
+void swap(int *a, int *b) {
+  int tmp = *a;
+  *a = *b;
+  *b = tmp;
+}
+
+/* sorting algorithms */
+
+/* Bubble Sort */
 void bubble_sort(int *arr, int n) {
   for (int i = 0; i < n; i++) {
     int swapped = 0;
@@ -23,6 +34,7 @@ void bubble_sort(int *arr, int n) {
   }
 }
 
+/* Insertion Sort */
 void insertion_sort(int *arr, int n) {
   for (int i = 1; i < n; i++) {
     int key = arr[i];
@@ -36,6 +48,7 @@ void insertion_sort(int *arr, int n) {
   }
 }
 
+/* Merge Sort */
 void merge(int *arr, int l, int mid, int r) {
   int n1 = mid - l + 1;
   int n2 = r - mid;
@@ -76,11 +89,35 @@ void merge_sort(int *arr, int l, int r) {
   }
 }
 
+/* Partion Algorithms */
+
+/* Lomuto Partion Algorithm */
+void lomuto_partion(int *arr, int l, int r) {
+  int i, j, pivot;
+  i = l - 1;
+  j = l;
+  pivot = arr[r];
+  while (j <= r) {
+    if (j == r) {
+      swap(&arr[++i], &arr[j]);
+      return;
+    }
+    if (arr[j] <= pivot) {
+      swap(&arr[++i], &arr[j]);
+    }
+    j++;
+  }
+}
+
 int main() {
   int arr[] = {5, 4, 3, 2, 1, 10, 9, 8, 7, 6};
   int n = sizeof(arr) / sizeof(arr[0]);
-  merge_sort(arr, 0, n - 1);
 
+  printf("Before\n");
   print_array(arr, n);
+  lomuto_partion(arr, 0, n - 1);
+  printf("After\n");
+  print_array(arr, n);
+
   return 0;
 }
