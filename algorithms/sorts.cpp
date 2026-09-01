@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 /* helper funtions */
@@ -49,34 +50,25 @@ void insertion_sort(int *arr, int n) {
 }
 
 /* Merge Sort */
+
 void merge(int *arr, int l, int mid, int r) {
-  int n1 = mid - l + 1;
-  int n2 = r - mid;
+  std::vector<int> left(arr + l, arr + mid + 1);
+  std::vector<int> right(arr + mid + 1, arr + r + 1);
 
-  int L[n1], R[n2]; // temporary copy of original array
-  // copy data
-  for (int i = 0; i < n1; i++)
-    L[i] = arr[l + i];
-  for (int i = 0; i < n2; i++)
-    R[i] = arr[mid + 1 + i];
+  int i = 0, j = 0, k = l;
 
-  int i, j, k;
-  i = j = 0;
-  k = l;
-  while (i < n1 && j < n2) {
-    if (L[i] <= R[j])
-      arr[k++] = L[i++];
+  while (i < left.size() && j < right.size()) {
+    if (left[i] <= right[j])
+      arr[k++] = left[i++];
     else
-      arr[k++] = R[j++];
+      arr[k++] = right[j++];
   }
 
-  while (i < n1) {
-    arr[k++] = L[i++];
-  }
+  while (i < left.size())
+    arr[k++] = left[i++];
 
-  while (j < n2) {
-    arr[k++] = R[j++];
-  }
+  while (j < right.size())
+    arr[k++] = right[j++];
 }
 
 void merge_sort(int *arr, int l, int r) {
@@ -92,31 +84,75 @@ void merge_sort(int *arr, int l, int r) {
 /* Partion Algorithms */
 
 /* Lomuto Partion Algorithm */
-void lomuto_partion(int *arr, int l, int r) {
+int lomuto_partion(int *arr, int l, int r) {
+  int i, j, pivot;
+  pivot = arr[r];
+  i = l - 1;
+
+  for (j = l; j < r; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      swap(&arr[i], &arr[j]);
+    }
+  }
+  swap(&arr[i + 1], &arr[j]);
+  return i + 1;
+}
+
+/* Hoares Partion Algorithm */
+int hoares_partion(int *arr, int l, int r) {
   int i, j, pivot;
   i = l - 1;
-  j = l;
-  pivot = arr[r];
-  while (j <= r) {
-    if (j == r) {
-      swap(&arr[++i], &arr[j]);
-      return;
+  j = r + 1;
+  pivot = arr[l];
+  while (true) {
+    do {
+      i++;
+    } while (arr[i] < pivot);
+
+    do {
+      j--;
+    } while (arr[j] > pivot);
+
+    if (i >= j)
+      return j;
+
+    // swap if arr[i] and arr[j]
+    swap(&arr[i], &arr[j]);
+  }
+}
+
+/* Quicksort */
+void quicksort(int *arr, int l, int r, char partion_algo) {
+  // print_array(arr + l, r - l + 1);
+  // cout << l << " " << r << endl << endl;
+  if (l < r) {
+    if (partion_algo == 'l') {
+      int p = lomuto_partion(arr, l, r);
+      // can skip p cause it already sorted
+      quicksort(arr, l, p - 1, partion_algo);
+      quicksort(arr, p + 1, r, partion_algo);
     }
-    if (arr[j] <= pivot) {
-      swap(&arr[++i], &arr[j]);
+    if (partion_algo == 'h') {
+      int p = hoares_partion(arr, l, r);
+      quicksort(arr, l, p, partion_algo);
+      quicksort(arr, p + 1, r, partion_algo);
     }
-    j++;
   }
 }
 
 int main() {
-  int arr[] = {5, 4, 3, 2, 1, 10, 9, 8, 7, 6};
+  int arr[] = {3, 2, 4, 8, 1, 6, 7, 5};
+  // int arr[] = {3, 2, 4, 8};
   int n = sizeof(arr) / sizeof(arr[0]);
 
-  printf("Before\n");
+  cout << "Before\n";
   print_array(arr, n);
-  lomuto_partion(arr, 0, n - 1);
-  printf("After\n");
+  // cout << lomuto_partion(arr, 0, n - 1);
+  // cout << hoares_partion(arr, 0, n - 1);
+  // merge_sort(arr, 0, n - 1);
+  quicksort(arr, 0, n - 1, 'h');
+  cout << "After\n";
   print_array(arr, n);
 
   return 0;
