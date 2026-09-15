@@ -58,7 +58,7 @@ public:
     }
     // get to just before pos
     Node *current_node = start;
-    for (int i = 1; i < pos - 1 && current_node != nullptr; i++) {
+    for (int i = 0; i < pos - 1 && current_node != nullptr; i++) {
       current_node = current_node->nxt;
     }
     // append if pos > num of nodes
@@ -75,8 +75,9 @@ int main() {
   LinkedList list;
 
   list.insert_start(1);
-  list.insert_end(3);
-  list.insert_pos(2, 1);
+  list.insert_end(2);
+  list.insert_end(4);
+  list.insert_pos(3, 2);
 
   list.display();
   return 0;
