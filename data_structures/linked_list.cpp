@@ -16,6 +16,18 @@ public:
   void display() {
     Node *current_node = start;
     while (current_node != nullptr) {
+      cout << current_node->data;
+      if (current_node->nxt != nullptr)
+        cout << " -> ";
+
+      current_node = current_node->nxt;
+    }
+    cout << endl;
+  }
+
+  void display_verbose() {
+    Node *current_node = start;
+    while (current_node != nullptr) {
       cout << endl;
       cout << "=> " << current_node << endl;
       cout << "   data = " << current_node->data << endl;
