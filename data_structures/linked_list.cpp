@@ -69,6 +69,21 @@ public:
     Node *new_node = new Node{data, current_node->nxt};
     current_node->nxt = new_node;
   }
+
+  void rev() {
+    Node *prev, *curr, *tmp;
+    prev = nullptr;
+    curr = start;
+    tmp = nullptr;
+
+    while (curr != nullptr) {
+      tmp = curr->nxt;
+      curr->nxt = prev;
+      prev = curr;
+      curr = tmp;
+    }
+    start = prev;
+  }
 };
 
 int main() {
@@ -79,6 +94,8 @@ int main() {
   list.insert_end(4);
   list.insert_pos(3, 2);
 
+  list.display();
+  list.rev();
   list.display();
   return 0;
 }
