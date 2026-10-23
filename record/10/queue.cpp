@@ -23,7 +23,7 @@ template <typename T> T Queue<T>::front() {
 
 template <typename T> void Queue<T>::enqueue(T val) {
     if (isFull()) {
-        std::cout << "Queue Overflow\n";
+        std::cout << "\x1b[31mQueue Overflow\x1b[0m\n";
         return;
     }
     arr[size] = val;
@@ -32,7 +32,7 @@ template <typename T> void Queue<T>::enqueue(T val) {
 
 template <typename T> void Queue<T>::dequeue() {
     if (isEmpty()) {
-        std::cout << "Queue Underflow\n";
+        std::cout << "\x1b[31mQueue Underflow\x1b[0m\n";
         return;
     }
     for (int i = 1; i < size; i++) {
