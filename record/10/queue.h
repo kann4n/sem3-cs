@@ -3,9 +3,9 @@
 
 #include <iostream>
 
-class Queue {
+template <typename T> class Queue {
   private:
-    int *arr;
+    T *arr;
     int capacity;
     int size;
 
@@ -14,8 +14,8 @@ class Queue {
     ~Queue();
     bool isEmpty();
     bool isFull();
-    int front();
-    void enqueue(int val);
+    T front();
+    void enqueue(T val);
     void dequeue();
     void display();
 };

@@ -1,51 +1,69 @@
-#include "queue.h"
+#include "queue.cpp"
 #include <iostream>
 
-#define CAPACITY 5
+using std::cout;
+using std::endl;
+
+#define CAPACITY 100
 
 int main() {
-    Queue q(CAPACITY);
+    Queue<int> q(CAPACITY);
+    bool running = true;
+    while (running) {
+        cout << "\nMenu" << endl;
+        cout << "1. Enqueue" << endl;
+        cout << "2. Dequeue" << endl;
+        cout << "3. Display" << endl;
+        cout << "4. Exit" << endl << endl;
 
-    std::cout << "Created Queue with capacity: " << CAPACITY << "\n\n";
-    
-    std::cout << "Enqueueing 5 elements [1, 2, 3, 4, 5]" << "\n";
-    for (int i = 0; i < 5; i++) {
-        q.enqueue(i + 1);
+        cout << "input > ";
+        int choice, n, value;
+
+        if (!(std::cin >> choice)) {
+            cout << "Invalid input - use only numbers" << endl;
+            running = false;
+            continue;
+        }
+        switch (choice) {
+        case 1:
+            cout << "\thow many elements > ";
+            if (!(std::cin >> n)) {
+                cout << "Invalid input - use only numbers" << endl;
+                running = false;
+                continue;
+            }
+            for (int i = 0; i < n; i++) {
+                cout << "\tvalue > ";
+                if (!(std::cin >> value)) {
+                    cout << "Invalid input - use only numbers" << endl;
+                    running = false;
+                    continue;
+                }
+                q.enqueue(value);
+            }
+            break;
+        case 2:
+            cout << "\thow many elements to dequeue > ";
+            if (!(std::cin >> n)) {
+                cout << "Invalid input - use only numbers" << endl;
+                continue;
+            }
+            for (int i = 0; i < n; i++) {
+                q.dequeue();
+            }
+            break;
+        case 3:
+            cout << "\n\tQueue: ";
+            q.display();
+            break;
+        case 4:
+            cout << "\tExiting..." << endl << endl;
+            running = false;
+            break;
+        default:
+            cout << "\n\tInvalid choice" << endl;
+            break;
+        }
     }
-    std::cout << "\nDisplaying current Queue: ";
-    q.display();
-    std::cout << "Queue is now " << (q.isFull() ? "full\n" : "not full\n");
-
-    std::cout << "Filling Queue to capacity" << "\n";
-    for (int i = 5; i < CAPACITY; i++) {
-        q.enqueue(i + 1);
-    }
-
-    std::cout << "\nDisplaying current Queue: ";
-    q.display();
-    std::cout << "Queue is now " << (q.isFull() ? "full\n" : "not full\n");
-
-    std::cout << "\nChecking Queue overflows" << "\n";
-    std::cout << "Enqueueing " << CAPACITY + 1 << "th element" << "\n";
-    q.enqueue(CAPACITY + 1);
-
-    std::cout << "Dequeueing " << CAPACITY - 2 << " elements" << "\n";
-    for (int i = 0; i < CAPACITY - 2; i++) {
-        q.dequeue();
-    }
-
-    std::cout << "\nDisplaying current Queue: ";
-    q.display();
-    std::cout << "Queue is now " << (q.isEmpty() ? "empty\n" : "not empty\n");
-
-    std::cout << "Dequeueing remaining elements" << "\n";
-    while (!q.isEmpty()) {
-        q.dequeue();
-    }
-    std::cout << "Queue is now " << (q.isEmpty() ? "empty\n" : "not empty\n");
-
-    std::cout << "Checking Queue underflows" << "\n";
-    q.dequeue();
-
     return 0;
 }

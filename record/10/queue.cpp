@@ -1,19 +1,19 @@
 // queue.cpp
 #include "queue.h"
 
-Queue::Queue(int cap) {
+template <typename T> Queue<T>::Queue(int cap) {
     capacity = cap;
-    arr = new int[capacity];
+    arr = new T[capacity];
     size = 0;
 }
 
-Queue::~Queue() { delete[] arr; }
+template <typename T> Queue<T>::~Queue() { delete[] arr; }
 
-bool Queue::isEmpty() { return size <= 0; }
+template <typename T> bool Queue<T>::isEmpty() { return size <= 0; }
 
-bool Queue::isFull() { return size >= capacity; }
+template <typename T> bool Queue<T>::isFull() { return size >= capacity; }
 
-int Queue::front() {
+template <typename T> T Queue<T>::front() {
     if (isEmpty()) {
         std::cout << "Queue is empty\n";
         return -1;
@@ -21,7 +21,7 @@ int Queue::front() {
     return arr[0];
 }
 
-void Queue::enqueue(int val) {
+template <typename T> void Queue<T>::enqueue(T val) {
     if (isFull()) {
         std::cout << "Queue Overflow\n";
         return;
@@ -30,7 +30,7 @@ void Queue::enqueue(int val) {
     size++;
 }
 
-void Queue::dequeue() {
+template <typename T> void Queue<T>::dequeue() {
     if (isEmpty()) {
         std::cout << "Queue Underflow\n";
         return;
@@ -41,7 +41,7 @@ void Queue::dequeue() {
     size--;
 }
 
-void Queue::display() {
+template <typename T> void Queue<T>::display() {
     for (int i = 0; i < size; i++) {
         std::cout << arr[i] << " ";
     }
