@@ -3,73 +3,507 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="A study guide to data structures and algorithms, covering arrays, linked lists, stacks, queues, trees, graphs, searching, and sorting."
+        />
         <title>Data Structures and Algorithms</title>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background: #eee;
-                line-height: 1.6;
+            :root {
+                color-scheme: light dark;
+                --bg: #f3f3f1;
+                --surface: #fbfbfa;
+                --text: #1b1b1b;
+                --muted: #5a5a5a;
+                --link: #0b4f9e;
+                --link-hover: #073b78;
+                --border: #d0d0cc;
+                --code-bg: #e7e7e3;
+                --focus: #1a5fb4;
             }
-            header,
-            main,
-            footer {
-                min-width: 40ch;
-                max-width: 80ch;
-                margin: 0 auto;
-                padding: 4px;
-            }
-            footer {
-                margin-top: 2rem;
-                text-align: center;
-            }
-            #layout {
-                display: grid;
-                grid-template-columns: 1fr 256px;
-                max-width: 100ch;
-                margin: 0 auto;
-                gap: 16px;
-                padding: 4px;
-            }
-            #contents {
-                position: sticky;
-                top: 32px;
-                align-self: start;
-                @media screen and (max-width: 60ch) {
-                    display: none;
+
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --bg: #121212;
+                    --surface: #232323;
+                    --text: #ededed;
+                    --muted: #dcdcdc;
+                    --link: #3434ff;
+                    --link-hover: #5656ff;
+                    --border: #454545;
+                    --code-bg: #565656;
+                    --focus: #121266;
                 }
             }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+            }
+
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+                    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+            }
+
+            a {
+                color: var(--link);
+            }
+
+            a:hover {
+                color: var(--link-hover);
+            }
+
+            a:focus-visible {
+                outline: 3px solid var(--focus);
+                outline-offset: 2px;
+                border-radius: 2px;
+            }
+
+            .skip-link {
+                position: absolute;
+                top: -3rem;
+                left: 0.5rem;
+                z-index: 100;
+                padding: 0.5rem 0.75rem;
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                background: var(--surface);
+                color: var(--text);
+            }
+
+            .skip-link:focus {
+                top: 0.5rem;
+            }
+
+            header,
+            footer,
+            #layout {
+                width: 100%;
+                max-width: 100ch;
+                margin-inline: auto;
+                padding-inline: 1rem;
+            }
+
+            header {
+                padding-top: 2rem;
+            }
+
+            h1 {
+                margin: 0;
+                font-size: clamp(1.75rem, 4vw, 2.35rem);
+                line-height: 1.15;
+            }
+
+            #layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 256px;
+                grid-template-areas: "main nav";
+                gap: 2rem;
+                margin-top: 1.5rem;
+                align-items: start;
+            }
+
+            main {
+                grid-area: main;
+                min-width: 0;
+            }
+
+            #contents {
+                grid-area: nav;
+                position: sticky;
+                top: 1.5rem;
+                align-self: start;
+                max-height: calc(100vh - 3rem);
+                max-height: calc(100dvh - 3rem);
+                overflow-y: auto;
+                overscroll-behavior: contain;
+            }
+
+            #contents summary {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+                margin-bottom: 0.5rem;
+                padding: 0.25rem 0;
+                border-bottom: 1px solid var(--border);
+                color: var(--muted);
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                list-style: none;
+                text-transform: uppercase;
+            }
+
+            #contents summary::-webkit-details-marker {
+                display: none;
+            }
+
+            #contents summary::marker {
+                content: "";
+            }
+
+            #contents summary::after {
+                content: "+";
+                font-size: 1.1rem;
+                line-height: 1;
+            }
+
+            #contents details[open] > summary::after {
+                content: "−";
+            }
+
+            #contents details:not([open]) > summary {
+                margin-bottom: 0;
+                border-bottom: 0;
+            }
+
             #contents ul {
-                padding-left: 16px;
-                margin: 8px 0;
+                margin: 0;
+                padding-left: 0;
+                list-style: none;
+            }
+
+            #contents ul ul {
+                margin: 0.2rem 0;
+                padding-left: 0.9rem;
+                border-left: 1px solid var(--border);
+            }
+
+            #contents li {
+                margin: 0.1rem 0;
+            }
+
+            #contents a {
+                display: block;
+                padding: 0.1rem 0.3rem;
+                border-radius: 4px;
+                color: var(--link);
+                line-height: 1.4;
+                text-decoration: none;
+            }
+
+            #contents a:hover {
+                background: var(--code-bg);
+                color: var(--link-hover);
+                text-decoration: underline;
+            }
+
+            main > section:first-child {
+                margin-top: 0;
+            }
+
+            main section {
+                margin-top: 2rem;
+            }
+
+            main section section {
+                margin-top: 1.5rem;
+            }
+
+            main h2,
+            main h3,
+            main h4 {
+                margin: 0 0 0.75rem;
+                line-height: 1.25;
+            }
+
+            main h2 {
+                font-size: 1.5rem;
+            }
+
+            main h3 {
+                font-size: 1.2rem;
+            }
+
+            main h4 {
+                font-size: 1.05rem;
+            }
+
+            main p {
+                margin: 0 0 1rem;
+            }
+
+            main ul {
+                margin: 0 0 1rem;
+                padding-left: 1.25rem;
+            }
+
+            main li + li {
+                margin-top: 0.25rem;
+            }
+
+            hr {
+                margin: 2rem 0 0;
+                border: 0;
+                border-top: 1px solid var(--border);
+            }
+
+            hr + section {
+                margin-top: 1.5rem;
+            }
+
+            dt {
+                font-weight: 700;
+            }
+
+            dd {
+                margin: 0.15rem 0 0;
+            }
+
+            code {
+                padding: 0.1em 0.35em;
+                border-radius: 4px;
+                background: var(--code-bg);
+                font-family:
+                    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 0.92em;
+            }
+
+            sup {
+                line-height: 0;
+            }
+
+            abbr[title] {
+                text-decoration: underline dotted;
+                cursor: help;
+            }
+
+            section[id] {
+                scroll-margin-top: 1.5rem;
+            }
+
+            footer {
+                margin-top: 3rem;
+                padding-block: 1.5rem 2rem;
+                border-top: 1px solid var(--border);
+                color: var(--muted);
+                text-align: center;
+            }
+
+            footer p {
+                margin: 0.25rem 0;
+            }
+
+            footer a {
+                color: var(--link);
+            }
+
+            @media (max-width: 60rem) {
+                #layout {
+                    grid-template-columns: minmax(0, 1fr);
+                    grid-template-areas:
+                        "nav"
+                        "main";
+                    gap: 1.5rem;
+                }
+
+                #contents {
+                    position: static;
+                    max-height: none;
+                    overflow: visible;
+                    padding: 0.75rem 1rem;
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    background: var(--surface);
+                }
+            }
+
+            @media (max-width: 30rem) {
+                header,
+                footer,
+                #layout {
+                    padding-inline: 0.75rem;
+                }
+            }
+
+            @media print {
+                :root {
+                    color-scheme: light;
+                }
+
+                body {
+                    background: #fff;
+                    color: #000;
+                }
+
+                .skip-link,
+                #contents {
+                    display: none;
+                }
+
+                header,
+                footer,
+                #layout {
+                    max-width: none;
+                    padding: 0;
+                }
+
+                #layout {
+                    display: block;
+                }
+
+                footer {
+                    border-top: 0;
+                }
+
+                footer p:first-child {
+                    display: none;
+                }
+
+                main section {
+                    margin-top: 1.5rem;
+                }
+
+                a {
+                    color: #000;
+                }
+
+                a[href^="http"]::after {
+                    content: " (" attr(href) ")";
+                    font-size: 0.85em;
+                }
+
+                code {
+                    background: #f0f0f0;
+                    color: #000;
+                }
+
+                h2,
+                h3,
+                h4 {
+                    break-after: avoid;
+                }
+
+                p,
+                li {
+                    orphans: 3;
+                    widows: 3;
+                }
             }
         </style>
     </head>
     <body>
+        <a class="skip-link" href="#main-content">Skip to content</a>
         <header id="top">
-            <h1><u>Data Structures and Algorithms</u></h1>
+            <h1>Data Structures and Algorithms</h1>
         </header>
         <div id="layout">
-            <main>
+            <nav aria-labelledby="contents-title" id="contents">
+                <details open>
+                    <summary id="contents-title">Contents</summary>
+                    <ul role="list">
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li>
+                            <a href="#data-structures">Data Structures</a>
+                            <ul role="list">
+                                <li><a href="#arrays">Arrays</a></li>
+                                <li>
+                                    <a href="#linked-lists">Linked Lists</a>
+                                </li>
+                                <li><a href="#stacks">Stacks</a></li>
+                                <li><a href="#queues">Queues</a></li>
+                                <li><a href="#trees">Trees</a></li>
+                                <li><a href="#graphs">Graphs</a></li>
+                                <li>
+                                    <a href="#advanced-data-structures"
+                                        >Advanced Data Structures</a
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#algorithms">Algorithms</a>
+                            <ul role="list">
+                                <li>
+                                    <a href="#searching-algorithms"
+                                        >Searching Algorithms</a
+                                    >
+                                    <ul role="list">
+                                        <li>
+                                            <a href="#linear-search"
+                                                >Linear Search</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="#binary-search"
+                                                >Binary Search</a
+                                            >
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#sorting-algorithms"
+                                        >Sorting Algorithms</a
+                                    >
+                                    <ul role="list">
+                                        <li>
+                                            <a href="#bubble-sort"
+                                                >Bubble Sort</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="#selection-sort"
+                                                >Selection Sort</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="#insertion-sort"
+                                                >Insertion Sort</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="#merge-sort">Merge Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="#quick-sort">Quick Sort</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </details>
+            </nav>
+            <main id="main-content" tabindex="-1">
                 <section id="introduction">
                     <h2>Introduction</h2>
                     <p>
-                        <strong>Data Structures and Algorithms</strong> are
-                        foundational concepts in computer science that play a
-                        crucial role in solving computational problems
-                        efficiently.
+                        <strong>Data structures and algorithms</strong> are
+                        foundational concepts in computer science. Together they
+                        determine how efficiently a program can store, retrieve,
+                        and process data.
                     </p>
                     <p>
-                        <strong>Data structures</strong> are organized and
-                        stored in formats to enable efficient data manipulation
-                        and retrieval. They provide a way to organize and store
-                        data so that operations can be performed efficiently.
+                        A <strong>data structure</strong> is a way of organizing
+                        data so that operations such as insertion, deletion,
+                        searching, and updating can be performed efficiently.
+                        The right choice depends on the problem and on the
+                        operations that matter most.
                     </p>
                     <p>
-                        <strong>Algorithms</strong> are step-by-step procedures
-                        or formulas for solving specific problems. They are a
-                        sequence of well-defined, unambiguous instructions
-                        designed to perform a specific task or solve a
-                        particular problem.
+                        An <strong>algorithm</strong> is a finite, step-by-step
+                        procedure for solving a problem. Each step is well
+                        defined and unambiguous, so following the steps always
+                        produces the intended result.
                     </p>
                 </section>
                 <hr />
@@ -78,28 +512,26 @@
                     <section id="arrays">
                         <h3>Arrays</h3>
                         <p>
-                            The most basic yet important data structure is the
-                            array. It is a linear data structure. An array is a
-                            collection of homogeneous data types where the
-                            elements are allocated contiguous memory. Because of
-                            the contiguous allocation of memory, any element of
-                            an array can be accessed in constant time. Each
-                            array element has a corresponding index number.
+                            An array is the most basic linear data structure. A
+                            classic array stores a fixed-size sequence of
+                            elements of the same type in contiguous memory.
+                            Because the elements are contiguous, any element can
+                            be accessed in constant time using its index. Each
+                            element has a corresponding index number, usually
+                            starting at zero.
                         </p>
                     </section>
                     <section id="linked-lists">
                         <h3>Linked Lists</h3>
                         <p>
-                            As the above data structures, the linked list is
-                            also a linear data structure. But Linked List is
-                            different from Array in its configuration. It is not
-                            allocated to contiguous memory locations. Instead,
-                            each node of the linked list is allocated to some
-                            random memory space and the previous node maintains
-                            a pointer that points to this node. So no direct
-                            memory access of any node is possible and it is also
-                            dynamic i.e., the size of the linked list can be
-                            adjusted at any time.
+                            Like an array, a linked list is a linear data
+                            structure, but its elements are not stored in
+                            contiguous memory. Each node contains a value and a
+                            pointer to the next node. As a result, there is no
+                            direct indexing: reaching an element requires
+                            following the links from the start. Unlike a
+                            fixed-size array, a linked list can grow or shrink
+                            at runtime.
                         </p>
                         <h4>Types</h4>
                         <ul>
@@ -111,105 +543,151 @@
                     <section id="stacks">
                         <h3>Stacks</h3>
                         <p>
-                            Stack is a linear data structure which follows a
-                            particular order in which the operations are
-                            performed. The order will be
-                            <abbr title="Last In First Out"
+                            A stack is a linear data structure that follows
+                            <abbr title="Last In, First Out"
                                 ><strong>LIFO</strong></abbr
                             >
+                            order: the most recently added element is removed
+                            first. The core operations are push (add to the top)
+                            and pop (remove from the top).
                         </p>
                         <p>
-                            The reason why Stack is considered a complex data
-                            structure is that it uses other data structures for
-                            implementation, such as Arrays, Linked lists, etc.
-                            based on the characteristics and features of Stack
-                            data structure.
+                            A stack is an abstract data type: it defines the
+                            operations and their order, not a specific memory
+                            layout. It can be implemented with an array or a
+                            linked list, and the choice affects performance and
+                            memory use.
                         </p>
                     </section>
                     <section id="queues">
                         <h3>Queues</h3>
                         <p>
-                            Queue is a linear data structure which follows a
-                            particular order in which the operations are
-                            performed. The order will be
-                            <abbr title="First In First Out"
+                            A queue is a linear data structure that follows
+                            <abbr title="First In, First Out"
                                 ><strong>FIFO</strong></abbr
                             >
+                            order: the earliest element added is removed first.
+                            The core operations are enqueue (add to the back)
+                            and dequeue (remove from the front).
                         </p>
                         <p>
-                            Just like Stack Queue is also considered a complex
-                            data structure is that it uses other data structures
-                            for implementation, such as Arrays, Linked lists,
-                            etc. based on the characteristics and features of
-                            Queue data structure.
+                            Like a stack, a queue is an abstract data type. It
+                            can be implemented with an array or a linked list;
+                            the choice depends on the operations and performance
+                            required.
                         </p>
                     </section>
                     <section id="trees">
                         <h3>Trees</h3>
                         <p>
-                            After having the basics covered about the linear
-                            data structure, now it is time to take a step
-                            forward to learn about the non-linear data
-                            structures. The first non-linear data structure you
-                            should learn is the tree.
+                            With the linear data structures covered, it is time
+                            to move on to non-linear data structures. The first
+                            non-linear structure to learn is the tree.
                         </p>
                         <p>
-                            Tree data structure is similar to a tree we see in
-                            nature but it is upside down. It also has a root and
-                            leaves. The root is the first node of the tree and
-                            the leaves are the ones at the bottom-most level.
-                            The special characteristic of a tree is that there
-                            is only one path to go from any of its nodes to any
-                            other node.
+                            A tree resembles a tree in nature, but upside down.
+                            It has a <strong>root</strong> at the top and
+                            <strong>leaves</strong> at the bottom. The root is
+                            the first node; leaves are nodes with no children. A
+                            defining property of a tree is that there is exactly
+                            one path between any two nodes.
                         </p>
                         <h4>Types</h4>
-                        <h5>
-                            Based on the maximum number of children of a parent
-                            node of the tree can hold
-                        </h5>
+                        <p>
+                            <strong
+                                >By the maximum number of children a node can
+                                have:</strong
+                            >
+                        </p>
                         <ul>
                             <li>Binary Tree</li>
                             <li>Ternary Tree</li>
                             <li>N-ary Tree</li>
                         </ul>
-                        <h5>
-                            Based on the configuration of nodes there are also
-                            several classifications.
-                        </h5>
+                        <p>
+                            <strong
+                                >By the configuration (shape) of the
+                                nodes:</strong
+                            >
+                        </p>
                         <ul>
                             <li>Complete Binary Tree</li>
                             <li>Perfect Binary Tree</li>
-                            <li>Binary Search Tree</li>
-                            <li>Ternary Search Tree</li>
                         </ul>
+                        <p>
+                            In a <strong>complete binary tree</strong>, every
+                            level is full except possibly the last, which is
+                            filled from left to right. In a
+                            <strong>perfect binary tree</strong>, every internal
+                            node has two children and all leaves are at the same
+                            depth.
+                        </p>
+                        <p>
+                            Binary search trees (BSTs) are a separate,
+                            ordering-based classification rather than a shape:
+                            for every node, all keys in the left subtree are
+                            smaller than the node's key, and all keys in the
+                            right subtree are larger. Ternary search trees are a
+                            string-oriented structure related to tries.
+                        </p>
                     </section>
                     <section id="graphs">
                         <h3>Graphs</h3>
                         <p>
                             Another important non-linear data structure is the
-                            graph. It is similar to the Tree data structure,
-                            with the difference that there is no particular root
-                            or leaf node, and it can be traversed in any order.
+                            graph. Like a tree, a graph consists of nodes and
+                            edges, but it has no particular root or leaf, and it
+                            can be traversed in many different orders.
                         </p>
                         <p>
-                            Graph is a non-linear data structure consisting of a
-                            finite set of vertices(or nodes) and a set of edges
-                            that connect a pair of nodes.
+                            Formally, a graph is a non-linear data structure
+                            consisting of a finite set of vertices (or nodes)
+                            and a set of edges that connect pairs of nodes. Each
+                            edge represents a relationship between two nodes.
+                            Graphs model many real-world problems, from road
+                            networks to social connections.
                         </p>
-                        <p>
-                            Each edge shows a connection between a pair of
-                            nodes. This data structure helps solve many
-                            real-life problems. Based on the orientation of the
-                            edges and the nodes there are various types of
-                            graphs.
-                        </p>
+                        <h4>Common classifications</h4>
+                        <ul>
+                            <li>
+                                <strong>Directed or undirected:</strong> edges
+                                may have a direction or not.
+                            </li>
+                            <li>
+                                <strong>Weighted or unweighted:</strong> edges
+                                may carry a cost or weight.
+                            </li>
+                            <li>
+                                <strong>Cyclic or acyclic:</strong> a graph may
+                                contain cycles or not.
+                            </li>
+                            <li>
+                                <strong>Connected or disconnected:</strong>
+                                every pair of nodes may be reachable, or the
+                                graph may have separate components.
+                            </li>
+                        </ul>
                     </section>
                     <section id="advanced-data-structures">
                         <h3>Advanced Data Structures</h3>
                         <ul>
-                            <li>Heaps</li>
-                            <li>Hash Tables</li>
-                            <li>Tries</li>
+                            <li>
+                                <strong>Heaps:</strong> complete binary trees
+                                that keep the smallest or largest element at the
+                                root; commonly used to implement priority
+                                queues.
+                            </li>
+                            <li>
+                                <strong>Hash tables:</strong> key-value stores
+                                that use a hash function to achieve average
+                                <code>O(1)</code> lookup, insertion, and
+                                deletion.
+                            </li>
+                            <li>
+                                <strong>Tries:</strong> prefix trees used to
+                                store and search strings, such as in
+                                dictionaries and autocomplete.
+                            </li>
                         </ul>
                     </section>
                 </section>
@@ -219,47 +697,54 @@
                     <section id="searching-algorithms">
                         <h3>Searching Algorithms</h3>
                         <p>
-                            Searching algorithms are used to find a particular
-                            element or value within a collection of data. Here
-                            are two common searching algorithms:
+                            Searching algorithms locate a particular element or
+                            value within a collection of data. Here are two
+                            common examples.
                         </p>
                         <section id="linear-search">
                             <h4>Linear Search</h4>
                             <p>
-                                Linear search, also known as sequential search,
-                                checks each element in the list until the
-                                desired element is found or the end of the list
-                                is reached. It is the simplest and most
-                                intuitive searching algorithm.
+                                Linear search, also called sequential search,
+                                checks each element in the list until it finds
+                                the target or reaches the end. It is the
+                                simplest searching algorithm and works on
+                                unsorted data, but it becomes slow for large
+                                collections.
                             </p>
                             <dl>
-                                <dt><strong>Time Complexity</strong></dt>
+                                <dt>Time Complexity</dt>
                                 <dd>
-                                    <code>O(n)</code> in the worst case, where n
-                                    is the number of elements in the list. This
-                                    is because in the worst case, the algorithm
-                                    may need to check every element in the list.
+                                    <code>O(n)</code> in the worst case, where
+                                    <code>n</code> is the number of elements in
+                                    the list, because every element may need to
+                                    be checked. It is <code>O(1)</code> in the
+                                    best case, when the target is the first
+                                    element.
                                 </dd>
                             </dl>
                         </section>
                         <section id="binary-search">
                             <h4>Binary Search</h4>
                             <p>
-                                Binary search is a more efficient searching
-                                algorithm that works on sorted lists. It
-                                repeatedly divides the list in half and checks
-                                whether the desired element is in the left or
-                                right half. It continues this process until the
-                                element is found or the list is empty.
+                                Binary search is more efficient than linear
+                                search, but it requires a sorted list. It
+                                compares the target with the middle element and
+                                discards the half that cannot contain the
+                                target, halving the search space at each step
+                                until the target is found or the remaining range
+                                is empty.
                             </p>
                             <dl>
-                                <dt><strong>Time Complexity</strong></dt>
+                                <dt>Time Complexity</dt>
                                 <dd>
-                                    <code>O(log n)</code> in the worst case,
-                                    where n is the number of elements in the
-                                    list. This is because the algorithm divides
-                                    the list in half at each step, leading to a
-                                    logarithmic time complexity.
+                                    <code>O(log n)</code> in the worst and
+                                    average cases, where <code>n</code> is the
+                                    number of elements in the list. The
+                                    algorithm divides the search space in half
+                                    at each step, so the number of steps grows
+                                    logarithmically. In the best case, when the
+                                    target is the middle element, it is
+                                    <code>O(1)</code>.
                                 </dd>
                             </dl>
                         </section>
@@ -267,73 +752,91 @@
                     <section id="sorting-algorithms">
                         <h3>Sorting Algorithms</h3>
                         <p>
-                            Sorting Algorithm is used to rearrange a given array
-                            or list elements according to a comparison operator
-                            on the elements. The comparison operator is used to
-                            decide the new order of element in the respective
-                            data structure.
+                            A sorting algorithm rearranges the elements of a
+                            list into a defined order, usually according to a
+                            comparison operator such as <code>&le;</code> or
+                            <code>&ge;</code>. The comparison decides the new
+                            order of the elements.
                         </p>
                         <section id="bubble-sort">
                             <h4>Bubble Sort</h4>
                             <p>
                                 Bubble sort repeatedly steps through the list,
-                                compares adjacent elements, and swaps them if
-                                they are in the wrong order.
+                                compares adjacent elements, and swaps them when
+                                they are out of order. After each pass, the
+                                largest remaining element moves to its final
+                                position. With an early-exit flag that stops the
+                                algorithm when a pass makes no swaps, the best
+                                case is <code>O(n)</code> for an already sorted
+                                list.
                             </p>
                             <dl>
                                 <dt>Time Complexity</dt>
                                 <dd>
-                                    <code>O(n<sup>2</sup>)</code> in the worst
-                                    case and <code>O(n)</code> in the best case
-                                    (when the list is already sorted).
+                                    <code>O(n<sup>2</sup>)</code> in the average
+                                    and worst cases, and <code>O(n)</code> in
+                                    the best case when the list is already
+                                    sorted and the early-exit optimization is
+                                    used.
                                 </dd>
                             </dl>
                         </section>
                         <section id="selection-sort">
                             <h4>Selection Sort</h4>
                             <p>
-                                Selection sort divides the input list into two
-                                parts: the sublist of items already sorted and
-                                the sublist of items remaining to be sorted. It
-                                repeatedly selects the smallest (or largest)
-                                element from the unsorted sublist and swaps it
-                                with the first element of the unsorted sublist.
+                                Selection sort divides the list into a sorted
+                                prefix and an unsorted suffix. On each pass, it
+                                finds the smallest (or largest) element in the
+                                unsorted part and swaps it into the first
+                                unsorted position. The sorted prefix grows by
+                                one element per pass.
                             </p>
                             <dl>
                                 <dt>Time Complexity</dt>
                                 <dd>
-                                    <code>O(n<sup>2</sup>)</code> in all
-                                    cases.(worst, average, best)
+                                    <code>O(n<sup>2</sup>)</code> in all cases
+                                    (worst, average, and best), because the
+                                    algorithm always scans the remaining
+                                    elements to find the minimum.
                                 </dd>
                             </dl>
                         </section>
                         <section id="insertion-sort">
-                            <h4>insertion-sort</h4>
+                            <h4>Insertion Sort</h4>
                             <p>
-                                Insertion sort builds the final sorted array one
-                                element at a time by repeatedly inserting the
-                                next element into the sorted part of the array.
+                                Insertion sort builds the sorted list one
+                                element at a time. It takes the next element and
+                                inserts it into its correct position among the
+                                already sorted elements, shifting larger
+                                elements to the right to make room. It is stable
+                                and works well for small or nearly sorted lists.
                             </p>
                             <dl>
                                 <dt>Time Complexity</dt>
                                 <dd>
-                                    <code>O(n<sup>2</sup>)</code> in the worst
-                                    case and <code>O(n)</code> in the best case
-                                    (when the list is already sorted).
+                                    <code>O(n<sup>2</sup>)</code> in the average
+                                    and worst cases, and <code>O(n)</code> in
+                                    the best case when the list is already
+                                    sorted.
                                 </dd>
                             </dl>
                         </section>
                         <section id="merge-sort">
                             <h4>Merge Sort</h4>
                             <p>
-                                Merge sort is a divide-and-conquer algorithm
-                                that divides the input list into two halves,
-                                sorts each half recursively, and then merges the
-                                two sorted halves.
+                                Merge sort is a divide-and-conquer algorithm. It
+                                divides the input list into two halves, sorts
+                                each half recursively, and then merges the two
+                                sorted halves into a single sorted list.
                             </p>
                             <dl>
                                 <dt>Time Complexity</dt>
                                 <dd><code>O(n log n)</code> in all cases.</dd>
+                                <dt>Space Complexity</dt>
+                                <dd>
+                                    <code>O(n)</code> additional space for the
+                                    merge step.
+                                </dd>
                             </dl>
                         </section>
                         <section id="quick-sort">
@@ -341,97 +844,64 @@
                             <p>
                                 Quick sort is a divide-and-conquer algorithm
                                 that selects a pivot element and partitions the
-                                input list into two sublists: elements less than
-                                the pivot and elements greater than the pivot.
-                                It then recursively sorts the two sublists.
+                                list into elements less than or equal to the
+                                pivot and elements greater than the pivot. It
+                                then recursively sorts the two partitions.
                             </p>
                             <dl>
                                 <dt>Time Complexity</dt>
                                 <dd>
                                     <code>O(n<sup>2</sup>)</code> in the worst
-                                    case and <code>O(n log n)</code> in the
-                                    average and best cases.
+                                    case, when the partitions are highly
+                                    unbalanced, and <code>O(n log n)</code> in
+                                    the average and best cases.
+                                </dd>
+                                <dt>Space Complexity</dt>
+                                <dd>
+                                    <code>O(log n)</code> average recursion
+                                    stack space.
                                 </dd>
                             </dl>
+                            <p>
+                                Choosing a random pivot or using median-of-three
+                                reduces the chance of hitting the worst case.
+                            </p>
                         </section>
+                        <p>
+                            Choosing the right data structure and algorithm is a
+                            trade-off between time, memory, and implementation
+                            complexity. The best choice depends on the
+                            operations a program performs most often and on the
+                            size and shape of its input.
+                        </p>
                     </section>
                 </section>
             </main>
-            <nav aria-label="Contents" id="contents">
-                <h2>Contents</h2>
-                <ul>
-                    <li><a href="#introduction">Introduction</a></li>
-                    <li>
-                        <a href="#data-structures">Data Structures</a>
-                        <ul>
-                            <li><a href="#arrays">Arrays</a></li>
-                            <li><a href="#linked-lists">Linked Lists</a></li>
-                            <li><a href="#stacks">Stacks</a></li>
-                            <li><a href="#queues">Queues</a></li>
-                            <li><a href="#trees">Trees</a></li>
-                            <li><a href="#graphs">Graphs</a></li>
-                            <li>
-                                <a href="#advanced-data-structures"
-                                    >Advanced Data Structures</a
-                                >
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#algorithms">Algorithms</a>
-                        <ul>
-                            <li>
-                                <a href="#searching-algorithms"
-                                    >Searching Algorithms</a
-                                >
-                                <ul>
-                                    <li>
-                                        <a href="#linear-search"
-                                            >Linear Search</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a href="#binary-search"
-                                            >Binary Search</a
-                                        >
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#sorting-algorithms"
-                                    >Sorting Algorithms</a
-                                >
-                                <ul>
-                                    <li>
-                                        <a href="#bubble-sort">Bubble Sort</a>
-                                    </li>
-                                    <li>
-                                        <a href="#insertion-sort"
-                                            >Insertion Sort</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a href="#merge-sort">Merge Sort</a>
-                                    </li>
-                                    <li>
-                                        <a href="#quick-sort">Quick Sort</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
         </div>
         <footer>
             <p><a href="#top">Back to top</a></p>
             <p>
-                most of data is taken from
+                Adapted from the
                 <a
                     href="https://www.geeksforgeeks.org/dsa/data-structures-algorithms-guide-for-developers/"
-                    >here</a
-                >
+                    >GeeksforGeeks Data Structures and Algorithms guide</a
+                >.
             </p>
         </footer>
+        <script>
+            (() => {
+                const toc = document.querySelector("#contents details");
+                if (!toc) return;
+
+                const mobile = window.matchMedia("(max-width: 60rem)");
+
+                const syncToc = () => {
+                    toc.open = !mobile.matches;
+                };
+
+                syncToc();
+                mobile.addEventListener("change", syncToc);
+            })();
+        </script>
     </body>
 </html>
