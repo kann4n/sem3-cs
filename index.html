@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Data Structures and Algorithms</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: #eee;
+                line-height: 1.6;
+            }
+            header,
+            main,
+            footer {
+                min-width: 40ch;
+                max-width: 80ch;
+                margin: 0 auto;
+                padding: 4px;
+            }
+            footer {
+                margin-top: 2rem;
+                text-align: center;
+            }
+            #layout {
+                display: grid;
+                grid-template-columns: 1fr 256px;
+                max-width: 100ch;
+                margin: 0 auto;
+                gap: 16px;
+                padding: 4px;
+            }
+            #contents {
+                position: sticky;
+                top: 32px;
+                align-self: start;
+                @media screen and (max-width: 60ch) {
+                    display: none;
+                }
+            }
+            #contents ul {
+                padding-left: 16px;
+                margin: 8px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <header id="top">
+            <h1><u>Data Structures and Algorithms</u></h1>
+        </header>
+        <div id="layout">
+            <main>
+                <section id="introduction">
+                    <h2>Introduction</h2>
+                    <p>
+                        <strong>Data Structures and Algorithms</strong> are
+                        foundational concepts in computer science that play a
+                        crucial role in solving computational problems
+                        efficiently.
+                    </p>
+                    <p>
+                        <strong>Data structures</strong> are organized and
+                        stored in formats to enable efficient data manipulation
+                        and retrieval. They provide a way to organize and store
+                        data so that operations can be performed efficiently.
+                    </p>
+                    <p>
+                        <strong>Algorithms</strong> are step-by-step procedures
+                        or formulas for solving specific problems. They are a
+                        sequence of well-defined, unambiguous instructions
+                        designed to perform a specific task or solve a
+                        particular problem.
+                    </p>
+                </section>
+                <hr />
+                <section id="data-structures">
+                    <h2>Data Structures</h2>
+                    <section id="arrays">
+                        <h3>Arrays</h3>
+                        <p>
+                            The most basic yet important data structure is the
+                            array. It is a linear data structure. An array is a
+                            collection of homogeneous data types where the
+                            elements are allocated contiguous memory. Because of
+                            the contiguous allocation of memory, any element of
+                            an array can be accessed in constant time. Each
+                            array element has a corresponding index number.
+                        </p>
+                    </section>
+                    <section id="linked-lists">
+                        <h3>Linked Lists</h3>
+                        <p>
+                            As the above data structures, the linked list is
+                            also a linear data structure. But Linked List is
+                            different from Array in its configuration. It is not
+                            allocated to contiguous memory locations. Instead,
+                            each node of the linked list is allocated to some
+                            random memory space and the previous node maintains
+                            a pointer that points to this node. So no direct
+                            memory access of any node is possible and it is also
+                            dynamic i.e., the size of the linked list can be
+                            adjusted at any time.
+                        </p>
+                        <h4>Types</h4>
+                        <ul>
+                            <li>Single Linked List</li>
+                            <li>Circular Linked List</li>
+                            <li>Doubly Linked List</li>
+                        </ul>
+                    </section>
+                    <section id="stacks">
+                        <h3>Stacks</h3>
+                        <p>
+                            Stack is a linear data structure which follows a
+                            particular order in which the operations are
+                            performed. The order will be
+                            <abbr title="Last In First Out"
+                                ><strong>LIFO</strong></abbr
+                            >
+                        </p>
+                        <p>
+                            The reason why Stack is considered a complex data
+                            structure is that it uses other data structures for
+                            implementation, such as Arrays, Linked lists, etc.
+                            based on the characteristics and features of Stack
+                            data structure.
+                        </p>
+                    </section>
+                    <section id="queues">
+                        <h3>Queues</h3>
+                        <p>
+                            Queue is a linear data structure which follows a
+                            particular order in which the operations are
+                            performed. The order will be
+                            <abbr title="First In First Out"
+                                ><strong>FIFO</strong></abbr
+                            >
+                        </p>
+                        <p>
+                            Just like Stack Queue is also considered a complex
+                            data structure is that it uses other data structures
+                            for implementation, such as Arrays, Linked lists,
+                            etc. based on the characteristics and features of
+                            Queue data structure.
+                        </p>
+                    </section>
+                    <section id="trees">
+                        <h3>Trees</h3>
+                        <p>
+                            After having the basics covered about the linear
+                            data structure, now it is time to take a step
+                            forward to learn about the non-linear data
+                            structures. The first non-linear data structure you
+                            should learn is the tree.
+                        </p>
+                        <p>
+                            Tree data structure is similar to a tree we see in
+                            nature but it is upside down. It also has a root and
+                            leaves. The root is the first node of the tree and
+                            the leaves are the ones at the bottom-most level.
+                            The special characteristic of a tree is that there
+                            is only one path to go from any of its nodes to any
+                            other node.
+                        </p>
+                        <h4>Types</h4>
+                        <h5>
+                            Based on the maximum number of children of a parent
+                            node of the tree can hold
+                        </h5>
+                        <ul>
+                            <li>Binary Tree</li>
+                            <li>Ternary Tree</li>
+                            <li>N-ary Tree</li>
+                        </ul>
+                        <h5>
+                            Based on the configuration of nodes there are also
+                            several classifications.
+                        </h5>
+                        <ul>
+                            <li>Complete Binary Tree</li>
+                            <li>Perfect Binary Tree</li>
+                            <li>Binary Search Tree</li>
+                            <li>Ternary Search Tree</li>
+                        </ul>
+                    </section>
+                    <section id="graphs">
+                        <h3>Graphs</h3>
+                        <p>
+                            Another important non-linear data structure is the
+                            graph. It is similar to the Tree data structure,
+                            with the difference that there is no particular root
+                            or leaf node, and it can be traversed in any order.
+                        </p>
+                        <p>
+                            Graph is a non-linear data structure consisting of a
+                            finite set of vertices(or nodes) and a set of edges
+                            that connect a pair of nodes.
+                        </p>
+                        <p>
+                            Each edge shows a connection between a pair of
+                            nodes. This data structure helps solve many
+                            real-life problems. Based on the orientation of the
+                            edges and the nodes there are various types of
+                            graphs.
+                        </p>
+                    </section>
+                    <section id="advanced-data-structures">
+                        <h3>Advanced Data Structures</h3>
+                        <ul>
+                            <li>Heaps</li>
+                            <li>Hash Tables</li>
+                            <li>Tries</li>
+                        </ul>
+                    </section>
+                </section>
+                <hr />
+                <section id="algorithms">
+                    <h2>Algorithms</h2>
+                    <section id="searching-algorithms">
+                        <h3>Searching Algorithms</h3>
+                        <p>
+                            Searching algorithms are used to find a particular
+                            element or value within a collection of data. Here
+                            are two common searching algorithms:
+                        </p>
+                        <section id="linear-search">
+                            <h4>Linear Search</h4>
+                            <p>
+                                Linear search, also known as sequential search,
+                                checks each element in the list until the
+                                desired element is found or the end of the list
+                                is reached. It is the simplest and most
+                                intuitive searching algorithm.
+                            </p>
+                            <dl>
+                                <dt><strong>Time Complexity</strong></dt>
+                                <dd>
+                                    <code>O(n)</code> in the worst case, where n
+                                    is the number of elements in the list. This
+                                    is because in the worst case, the algorithm
+                                    may need to check every element in the list.
+                                </dd>
+                            </dl>
+                        </section>
+                        <section id="binary-search">
+                            <h4>Binary Search</h4>
+                            <p>
+                                Binary search is a more efficient searching
+                                algorithm that works on sorted lists. It
+                                repeatedly divides the list in half and checks
+                                whether the desired element is in the left or
+                                right half. It continues this process until the
+                                element is found or the list is empty.
+                            </p>
+                            <dl>
+                                <dt><strong>Time Complexity</strong></dt>
+                                <dd>
+                                    <code>O(log n)</code> in the worst case,
+                                    where n is the number of elements in the
+                                    list. This is because the algorithm divides
+                                    the list in half at each step, leading to a
+                                    logarithmic time complexity.
+                                </dd>
+                            </dl>
+                        </section>
+                    </section>
+                    <section id="sorting-algorithms">
+                        <h3>Sorting Algorithms</h3>
+                        <p>
+                            Sorting Algorithm is used to rearrange a given array
+                            or list elements according to a comparison operator
+                            on the elements. The comparison operator is used to
+                            decide the new order of element in the respective
+                            data structure.
+                        </p>
+                        <section id="bubble-sort">
+                            <h4>Bubble Sort</h4>
+                            <p>
+                                Bubble sort repeatedly steps through the list,
+                                compares adjacent elements, and swaps them if
+                                they are in the wrong order.
+                            </p>
+                            <dl>
+                                <dt>Time Complexity</dt>
+                                <dd>
+                                    <code>O(n<sup>2</sup>)</code> in the worst
+                                    case and <code>O(n)</code> in the best case
+                                    (when the list is already sorted).
+                                </dd>
+                            </dl>
+                        </section>
+                        <section id="selection-sort">
+                            <h4>Selection Sort</h4>
+                            <p>
+                                Selection sort divides the input list into two
+                                parts: the sublist of items already sorted and
+                                the sublist of items remaining to be sorted. It
+                                repeatedly selects the smallest (or largest)
+                                element from the unsorted sublist and swaps it
+                                with the first element of the unsorted sublist.
+                            </p>
+                            <dl>
+                                <dt>Time Complexity</dt>
+                                <dd>
+                                    <code>O(n<sup>2</sup>)</code> in all
+                                    cases.(worst, average, best)
+                                </dd>
+                            </dl>
+                        </section>
+                        <section id="insertion-sort">
+                            <h4>insertion-sort</h4>
+                            <p>
+                                Insertion sort builds the final sorted array one
+                                element at a time by repeatedly inserting the
+                                next element into the sorted part of the array.
+                            </p>
+                            <dl>
+                                <dt>Time Complexity</dt>
+                                <dd>
+                                    <code>O(n<sup>2</sup>)</code> in the worst
+                                    case and <code>O(n)</code> in the best case
+                                    (when the list is already sorted).
+                                </dd>
+                            </dl>
+                        </section>
+                        <section id="merge-sort">
+                            <h4>Merge Sort</h4>
+                            <p>
+                                Merge sort is a divide-and-conquer algorithm
+                                that divides the input list into two halves,
+                                sorts each half recursively, and then merges the
+                                two sorted halves.
+                            </p>
+                            <dl>
+                                <dt>Time Complexity</dt>
+                                <dd><code>O(n log n)</code> in all cases.</dd>
+                            </dl>
+                        </section>
+                        <section id="quick-sort">
+                            <h4>Quick Sort</h4>
+                            <p>
+                                Quick sort is a divide-and-conquer algorithm
+                                that selects a pivot element and partitions the
+                                input list into two sublists: elements less than
+                                the pivot and elements greater than the pivot.
+                                It then recursively sorts the two sublists.
+                            </p>
+                            <dl>
+                                <dt>Time Complexity</dt>
+                                <dd>
+                                    <code>O(n<sup>2</sup>)</code> in the worst
+                                    case and <code>O(n log n)</code> in the
+                                    average and best cases.
+                                </dd>
+                            </dl>
+                        </section>
+                    </section>
+                </section>
+            </main>
+            <nav aria-label="Contents" id="contents">
+                <h2>Contents</h2>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li>
+                        <a href="#data-structures">Data Structures</a>
+                        <ul>
+                            <li><a href="#arrays">Arrays</a></li>
+                            <li><a href="#linked-lists">Linked Lists</a></li>
+                            <li><a href="#stacks">Stacks</a></li>
+                            <li><a href="#queues">Queues</a></li>
+                            <li><a href="#trees">Trees</a></li>
+                            <li><a href="#graphs">Graphs</a></li>
+                            <li>
+                                <a href="#advanced-data-structures"
+                                    >Advanced Data Structures</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#algorithms">Algorithms</a>
+                        <ul>
+                            <li>
+                                <a href="#searching-algorithms"
+                                    >Searching Algorithms</a
+                                >
+                                <ul>
+                                    <li>
+                                        <a href="#linear-search"
+                                            >Linear Search</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a href="#binary-search"
+                                            >Binary Search</a
+                                        >
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#sorting-algorithms"
+                                    >Sorting Algorithms</a
+                                >
+                                <ul>
+                                    <li>
+                                        <a href="#bubble-sort">Bubble Sort</a>
+                                    </li>
+                                    <li>
+                                        <a href="#insertion-sort"
+                                            >Insertion Sort</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a href="#merge-sort">Merge Sort</a>
+                                    </li>
+                                    <li>
+                                        <a href="#quick-sort">Quick Sort</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <footer>
+            <p><a href="#top">Back to top</a></p>
+            <p>
+                most of data is taken from
+                <a
+                    href="https://www.geeksforgeeks.org/dsa/data-structures-algorithms-guide-for-developers/"
+                    >here</a
+                >
+            </p>
+        </footer>
+    </body>
+</html>
