@@ -11,20 +11,6 @@
     --focus: #1a5fb4;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #121212;
-        --surface: #232323;
-        --text: #ededed;
-        --muted: #dcdcdc;
-        --link: #3434ff;
-        --link-hover: #5656ff;
-        --border: #454545;
-        --code-bg: #565656;
-        --focus: #121266;
-    }
-}
-
 *,
 *::before,
 *::after {
