@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A study guide to searching and sorting algorithms, covering linear search, binary search, bubble sort, selection sort, insertion sort, merge sort, and quick sort.">
+        <title>Algorithms</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+        <header id="top">
+            <h1 id="algorithms">Algorithms</h1>
+        </header>
+        <div id="layout">
+            
+            
+            <nav aria-labelledby="contents-title" id="contents">
+                <details open="">
+                    <summary id="contents-title">Contents</summary>
+                    <ul role="list">
+                        <li><a href="/#introduction">Introduction</a></li>
+                        <li>
+                            <a href="/#data-structures">Data Structures</a>
+                            <ul role="list">
+                                <li><a href="/#arrays">Arrays</a></li>
+                                <li>
+                                    <a href="/#linked-lists">Linked Lists</a>
+                                </li>
+                                <li><a href="/#stacks">Stacks</a></li>
+                                <li><a href="/#queues">Queues</a></li>
+                                <li><a href="/#trees">Trees</a></li>
+                                <li><a href="/#graphs">Graphs</a></li>
+                                <li>
+                                    <a href="/#advanced-data-structures">Advanced Data Structures</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/algorithms/" aria-current="page">Algorithms</a>
+                            <ul role="list">
+                                <li>
+                                    <a href="/algorithms/#searching-algorithms">Searching Algorithms</a>
+                                    <ul role="list">
+                                        <li>
+                                            <a href="/algorithms/#linear-search">Linear Search</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#binary-search">Binary Search</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="/algorithms/#sorting-algorithms">Sorting Algorithms</a>
+                                    <ul role="list">
+                                        <li>
+                                            <a href="/algorithms/#bubble-sort">Bubble Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#selection-sort">Selection Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#insertion-sort">Insertion Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#merge-sort">Merge Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#quick-sort">Quick Sort</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </details>
+            </nav>
+            <main id="main-content" tabindex="-1">
+                <p>All C++ examples use standard C-style arrays (<code>int arr[]</code>) and an explicit <code>int size</code> parameter, requiring no external headers. No <code>main</code> function is included; call these functions from your own code. The search functions return the index of the target, or <code>-1</code> if it is not present; the sorting functions reorder the array in place.</p>
+<h2 id="searching-algorithms">Searching Algorithms</h2>
+<p>Searching algorithms locate a particular element or value within a collection of data. Here are two common examples.</p>
+<h3 id="linear-search">Linear Search</h3>
+<p>Linear search, also called sequential search, checks each element in the list until it finds the target or reaches the end. It is the simplest searching algorithm and works on unsorted data, but it becomes slow for large collections.</p>
+<dl>
+  <dt>Time Complexity</dt>
+  <dd><code>O(n)</code> in the worst case, where <code>n</code> is the number of elements in the list, because every element may need to be checked. It is <code>O(1)</code> in the best case, when the target is the first element.</dd>
+</dl>
+<p><strong>C++ implementation</strong></p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">linearSearch</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>values<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="binary-search">Binary Search</h3>
+<p>Binary search is more efficient than linear search, but it requires a sorted list. It compares the target with the middle element and discards the half that cannot contain the target, halving the search space at each step until the target is found or the remaining range is empty.</p>
+<dl>
+  <dt>Time Complexity</dt>
+  <dd><code>O(log n)</code> in the worst and average cases, where <code>n</code> is the number of elements in the list. The algorithm divides the search space in half at each step, so the number of steps grows logarithmically. In the best case, when the target is the middle element, it is <code>O(1)</code>.</dd>
+</dl>
+<p><strong>C++ implementation</strong></p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">binarySearch</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> right <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;=</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> middle <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>values<span class="token punctuation">[</span>middle<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> middle<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>values<span class="token punctuation">[</span>middle<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            left <span class="token operator">=</span> middle <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            right <span class="token operator">=</span> middle <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="sorting-algorithms">Sorting Algorithms</h2>
+<p>A sorting algorithm rearranges the elements of a list into a defined order, usually according to a comparison operator such as <code>≤</code> or <code>≥</code>. The comparison decides the new order of the elements.</p>
+<h3 id="bubble-sort">Bubble Sort</h3>
+<p>Bubble sort repeatedly steps through the list, compares adjacent elements, and swaps them when they are out of order. After each pass, the largest remaining element moves to its final position. With an early-exit flag that stops the algorithm when a pass makes no swaps, the best case is <code>O(n)</code> for an already sorted list.</p>
+<dl>
+  <dt>Time Complexity</dt>
+  <dd><code>O(n<sup>2</sup>)</code> in the average and worst cases, and <code>O(n)</code> in the best case when the list is already sorted and the early-exit optimization is used.</dd>
+</dl>
+<p><strong>C++ implementation</strong></p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">bubbleSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> pass <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> pass <span class="token operator">&lt;</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token operator">++</span>pass<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">bool</span> swapped <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">-</span> pass<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>values<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> values<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> temp <span class="token operator">=</span> values<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                values<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                values<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+                swapped <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>swapped<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="selection-sort">Selection Sort</h3>
+<p>Selection sort divides the list into a sorted prefix and an unsorted suffix. On each pass, it finds the smallest (or largest) element in the unsorted part and swaps it into the first unsorted position. The sorted prefix grows by one element per pass.</p>
+<dl>
+  <dt>Time Complexity</dt>
+  <dd><code>O(n<sup>2</sup>)</code> in all cases (worst, average, and best), because the algorithm always scans the remaining elements to find the minimum.</dd>
+</dl>
+<p><strong>C++ implementation</strong></p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">selectionSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> smallest <span class="token operator">=</span> i<span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>values<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;</span> values<span class="token punctuation">[</span>smallest<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                smallest <span class="token operator">=</span> j<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>smallest <span class="token operator">!=</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> temp <span class="token operator">=</span> values<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            values<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>smallest<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            values<span class="token punctuation">[</span>smallest<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="insertion-sort">Insertion Sort</h3>
+<p>Insertion sort builds the sorted list one element at a time. It takes the next element and inserts it into its correct position among the already sorted elements, shifting larger elements to the right to make room. It is stable and works well for small or nearly sorted lists.</p>
+<dl>
+  <dt>Time Complexity</dt>
+  <dd><code>O(n<sup>2</sup>)</code> in the average and worst cases, and <code>O(n)</code> in the best case when the list is already sorted.</dd>
+</dl>
+<p><strong>C++ implementation</strong></p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">insertionSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> key <span class="token operator">=</span> values<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> values<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            values<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token operator">--</span>j<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        values<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> key<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="merge-sort">Merge Sort</h3>
+<p>Merge sort is a divide-and-conquer algorithm. It divides the input list into two halves, sorts each half recursively, and then merges the two sorted halves into a single sorted list.</p>
+<dl>
+  <dt>Time Complexity</dt>
+  <dd><code>O(n log n)</code> in all cases.</dd>
+  <dt>Space Complexity</dt>
+  <dd><code>O(n)</code> additional space for the merge step.</dd>
+</dl>
+<p><strong>C++ implementation</strong></p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">mergeHalves</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> middle<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> leftSize <span class="token operator">=</span> middle <span class="token operator">-</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> rightSize <span class="token operator">=</span> right <span class="token operator">-</span> middle<span class="token punctuation">;</span>
+
+    <span class="token keyword">int</span><span class="token operator">*</span> leftHalf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span>leftSize<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token operator">*</span> rightHalf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span>rightSize<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> leftSize<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        leftHalf<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>left <span class="token operator">+</span> i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> rightSize<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        rightHalf<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>middle <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> k <span class="token operator">=</span> left<span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> leftSize <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> rightSize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>leftHalf<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> rightHalf<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            values<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> leftHalf<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            values<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> rightHalf<span class="token punctuation">[</span>j<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> leftSize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        values<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> leftHalf<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> rightSize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        values<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> rightHalf<span class="token punctuation">[</span>j<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span> leftHalf<span class="token punctuation">;</span>
+    <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span> rightHalf<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">mergeSortRange</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">>=</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> middle <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token function">mergeSortRange</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> left<span class="token punctuation">,</span> middle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">mergeSortRange</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> middle <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">mergeHalves</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> left<span class="token punctuation">,</span> middle<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">mergeSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>size <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">mergeSortRange</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="quick-sort">Quick Sort</h3>
+<p>Quick sort is a divide-and-conquer algorithm that selects a pivot element and partitions the list into elements less than or equal to the pivot and elements greater than the pivot. It then recursively sorts the two partitions.</p>
+<dl>
+  <dt>Time Complexity</dt>
+  <dd><code>O(n<sup>2</sup>)</code> in the worst case, when the partitions are highly unbalanced, and <code>O(n log n)</code> in the average and best cases.</dd>
+  <dt>Space Complexity</dt>
+  <dd><code>O(log n)</code> average recursion stack space.</dd>
+</dl>
+<p><strong>C++ implementation</strong></p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">lomutoPartition</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> low<span class="token punctuation">,</span> <span class="token keyword">int</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> pivot <span class="token operator">=</span> values<span class="token punctuation">[</span>high<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> smaller <span class="token operator">=</span> low <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> current <span class="token operator">=</span> low<span class="token punctuation">;</span> current <span class="token operator">&lt;</span> high<span class="token punctuation">;</span> <span class="token operator">++</span>current<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>values<span class="token punctuation">[</span>current<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> pivot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token operator">++</span>smaller<span class="token punctuation">;</span>
+            <span class="token keyword">int</span> temp <span class="token operator">=</span> values<span class="token punctuation">[</span>smaller<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            values<span class="token punctuation">[</span>smaller<span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>current<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            values<span class="token punctuation">[</span>current<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> temp <span class="token operator">=</span> values<span class="token punctuation">[</span>smaller <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    values<span class="token punctuation">[</span>smaller <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> values<span class="token punctuation">[</span>high<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    values<span class="token punctuation">[</span>high<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> smaller <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">quickSortRange</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> low<span class="token punctuation">,</span> <span class="token keyword">int</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>low <span class="token operator">>=</span> high<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> pivotIndex <span class="token operator">=</span> <span class="token function">lomutoPartition</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> low<span class="token punctuation">,</span> high<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">quickSortRange</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> low<span class="token punctuation">,</span> pivotIndex <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">quickSortRange</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> pivotIndex <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> high<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">quickSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> values<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> size<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>size <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">quickSortRange</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Choosing a random pivot or using median-of-three reduces the chance of hitting the worst case.</p>
+<p>Choosing the right data structure and algorithm is a trade-off between time, memory, and implementation complexity. The best choice depends on the operations a program performs most often and on the size and shape of its input.</p>
+
+            </main>
+        </div>
+        <footer>
+            <p><a href="#top">Back to top</a></p>
+            <p>
+                Adapted from the
+                <a href="https://www.geeksforgeeks.org/dsa/data-structures-algorithms-guide-for-developers/">here</a>.
+            </p>
+        </footer>
+        <script>
+            (() => {
+                const toc = document.querySelector("#contents details");
+                if (!toc) return;
+
+                const mobile = window.matchMedia("(max-width: 60rem)");
+
+                const syncToc = () => {
+                    toc.open = !mobile.matches;
+                };
+
+                syncToc();
+                mobile.addEventListener("change", syncToc);
+            })();
+        </script>
+    </body>
+</html>

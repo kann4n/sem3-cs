@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A study guide to data structures, covering arrays, linked lists, stacks, queues, trees, graphs, and advanced structures.">
+        <title>Data Structures and Algorithms</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+        <header id="top">
+            <h1 id="data-structures-and-algorithms">Data Structures and Algorithms</h1>
+        </header>
+        <div id="layout">
+            
+            
+            <nav aria-labelledby="contents-title" id="contents">
+                <details open="">
+                    <summary id="contents-title">Contents</summary>
+                    <ul role="list">
+                        <li><a href="/#introduction">Introduction</a></li>
+                        <li>
+                            <a href="/#data-structures" aria-current="page">Data Structures</a>
+                            <ul role="list">
+                                <li><a href="/#arrays">Arrays</a></li>
+                                <li>
+                                    <a href="/#linked-lists">Linked Lists</a>
+                                </li>
+                                <li><a href="/#stacks">Stacks</a></li>
+                                <li><a href="/#queues">Queues</a></li>
+                                <li><a href="/#trees">Trees</a></li>
+                                <li><a href="/#graphs">Graphs</a></li>
+                                <li>
+                                    <a href="/#advanced-data-structures">Advanced Data Structures</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/algorithms/">Algorithms</a>
+                            <ul role="list">
+                                <li>
+                                    <a href="/algorithms/#searching-algorithms">Searching Algorithms</a>
+                                    <ul role="list">
+                                        <li>
+                                            <a href="/algorithms/#linear-search">Linear Search</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#binary-search">Binary Search</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="/algorithms/#sorting-algorithms">Sorting Algorithms</a>
+                                    <ul role="list">
+                                        <li>
+                                            <a href="/algorithms/#bubble-sort">Bubble Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#selection-sort">Selection Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#insertion-sort">Insertion Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#merge-sort">Merge Sort</a>
+                                        </li>
+                                        <li>
+                                            <a href="/algorithms/#quick-sort">Quick Sort</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </details>
+            </nav>
+            <main id="main-content" tabindex="-1">
+                <h2 id="introduction">Introduction</h2>
+<p><strong>Data structures and algorithms</strong> are foundational concepts in computer science. Together they determine how efficiently a program can store, retrieve, and process data.</p>
+<p>A <strong>data structure</strong> is a way of organizing data so that operations such as insertion, deletion, searching, and updating can be performed efficiently. The right choice depends on the problem and on the operations that matter most.</p>
+<p>An <strong>algorithm</strong> is a finite, step-by-step procedure for solving a problem. Each step is well defined and unambiguous, so following the steps always produces the intended result.</p>
+<hr>
+<h2 id="data-structures">Data Structures</h2>
+<h3 id="arrays">Arrays</h3>
+<p>An array is the most basic linear data structure. A classic array stores a fixed-size sequence of elements of the same type in contiguous memory. Because the elements are contiguous, any element can be accessed in constant time using its index. Each element has a corresponding index number, usually starting at zero.</p>
+<h3 id="linked-lists">Linked Lists</h3>
+<p>Like an array, a linked list is a linear data structure, but its elements are not stored in contiguous memory. Each node contains a value and a pointer to the next node. As a result, there is no direct indexing: reaching an element requires following the links from the start. Unlike a fixed-size array, a linked list can grow or shrink at runtime.</p>
+<h4 id="types">Types</h4>
+<ul>
+<li>Single Linked List</li>
+<li>Circular Linked List</li>
+<li>Doubly Linked List</li>
+</ul>
+<h3 id="stacks">Stacks</h3>
+<p>A stack is a linear data structure that follows <abbr title="Last In, First Out"><strong>LIFO</strong></abbr> order: the most recently added element is removed first. The core operations are push (add to the top) and pop (remove from the top).</p>
+<p>A stack is an abstract data type: it defines the operations and their order, not a specific memory layout. It can be implemented with an array or a linked list, and the choice affects performance and memory use.</p>
+<h3 id="queues">Queues</h3>
+<p>A queue is a linear data structure that follows <abbr title="First In, First Out"><strong>FIFO</strong></abbr> order: the earliest element added is removed first. The core operations are enqueue (add to the back) and dequeue (remove from the front).</p>
+<p>Like a stack, a queue is an abstract data type. It can be implemented with an array or a linked list; the choice depends on the operations and performance required.</p>
+<h3 id="trees">Trees</h3>
+<p>With the linear data structures covered, it is time to move on to non-linear data structures. The first non-linear structure to learn is the tree.</p>
+<p>A tree resembles a tree in nature, but upside down. It has a <strong>root</strong> at the top and <strong>leaves</strong> at the bottom. The root is the first node; leaves are nodes with no children. A defining property of a tree is that there is exactly one path between any two nodes.</p>
+<h4 id="types-2">Types</h4>
+<p><strong>By the maximum number of children a node can have:</strong></p>
+<ul>
+<li>Binary Tree</li>
+<li>Ternary Tree</li>
+<li>N-ary Tree</li>
+</ul>
+<p><strong>By the configuration (shape) of the nodes:</strong></p>
+<ul>
+<li>Complete Binary Tree</li>
+<li>Perfect Binary Tree</li>
+</ul>
+<p>In a <strong>complete binary tree</strong>, every level is full except possibly the last, which is filled from left to right. In a <strong>perfect binary tree</strong>, every internal node has two children and all leaves are at the same depth.</p>
+<p>Binary search trees (BSTs) are a separate, ordering-based classification rather than a shape: for every node, all keys in the left subtree are smaller than the node's key, and all keys in the right subtree are larger. Ternary search trees are a string-oriented structure related to tries.</p>
+<h3 id="graphs">Graphs</h3>
+<p>Another important non-linear data structure is the graph. Like a tree, a graph consists of nodes and edges, but it has no particular root or leaf, and it can be traversed in many different orders.</p>
+<p>Formally, a graph is a non-linear data structure consisting of a finite set of vertices (or nodes) and a set of edges that connect pairs of nodes. Each edge represents a relationship between two nodes. Graphs model many real-world problems, from road networks to social connections.</p>
+<h4 id="common-classifications">Common classifications</h4>
+<ul>
+<li><strong>Directed or undirected:</strong> edges may have a direction or not.</li>
+<li><strong>Weighted or unweighted:</strong> edges may carry a cost or weight.</li>
+<li><strong>Cyclic or acyclic:</strong> a graph may contain cycles or not.</li>
+<li><strong>Connected or disconnected:</strong> every pair of nodes may be reachable, or the graph may have separate components.</li>
+</ul>
+<h3 id="advanced-data-structures">Advanced Data Structures</h3>
+<ul>
+<li><strong>Heaps:</strong> complete binary trees that keep the smallest or largest element at the root; commonly used to implement priority queues.</li>
+<li><strong>Hash tables:</strong> key-value stores that use a hash function to achieve average <code>O(1)</code> lookup, insertion, and deletion.</li>
+<li><strong>Tries:</strong> prefix trees used to store and search strings, such as in dictionaries and autocomplete.</li>
+</ul>
+<p>Continue to <a href="/algorithms/">Algorithms</a> to learn about searching and sorting.</p>
+
+            </main>
+        </div>
+        <footer>
+            <p><a href="#top">Back to top</a></p>
+            <p>
+                Adapted from the
+                <a href="https://www.geeksforgeeks.org/dsa/data-structures-algorithms-guide-for-developers/">here</a>.
+            </p>
+        </footer>
+        <script>
+            (() => {
+                const toc = document.querySelector("#contents details");
+                if (!toc) return;
+
+                const mobile = window.matchMedia("(max-width: 60rem)");
+
+                const syncToc = () => {
+                    toc.open = !mobile.matches;
+                };
+
+                syncToc();
+                mobile.addEventListener("change", syncToc);
+            })();
+        </script>
+    </body>
+</html>
