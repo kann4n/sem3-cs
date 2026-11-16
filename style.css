@@ -1,14 +1,21 @@
 :root {
-    color-scheme: light dark;
-    --bg: #f3f3f1;
-    --surface: #fbfbfa;
-    --text: #1b1b1b;
-    --muted: #5a5a5a;
-    --link: #0b4f9e;
-    --link-hover: #073b78;
-    --border: #d0d0cc;
-    --code-bg: #e7e7e3;
-    --focus: #1a5fb4;
+    color-scheme: light;
+    --bg: #cfc;
+    --surface: #0f0;
+    --text: #000;
+    --muted: #222;
+    --link: #800;
+    --link-hover: #00f;
+    --border: #333;
+    --code-bg: #fed;
+    --code-comment: #aaa;
+    --code-keyword: #f00;
+    --code-string: #0f0;
+    --code-number: #00f;
+    --code-function: #a0a;
+    --code-variable: #111;
+    --code-punctuation: #000;
+    --focus: #edc;
 }
 
 *,
@@ -31,10 +38,8 @@ body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font-family:
-        "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.8;
 }
 
 a {
@@ -49,22 +54,6 @@ a:focus-visible {
     outline: 3px solid var(--focus);
     outline-offset: 2px;
     border-radius: 2px;
-}
-
-.skip-link {
-    position: absolute;
-    top: -3rem;
-    left: 0.5rem;
-    z-index: 100;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--text);
-}
-
-.skip-link:focus {
-    top: 0.5rem;
 }
 
 header,
@@ -182,18 +171,6 @@ main {
     text-decoration: underline;
 }
 
-main > section:first-child {
-    margin-top: 0;
-}
-
-main section {
-    margin-top: 2rem;
-}
-
-main section section {
-    margin-top: 1.5rem;
-}
-
 main h2,
 main h3,
 main h4 {
@@ -202,15 +179,22 @@ main h4 {
 }
 
 main h2 {
+    margin-top: 2rem;
     font-size: 1.5rem;
 }
 
 main h3 {
+    margin-top: 1.5rem;
     font-size: 1.2rem;
 }
 
 main h4 {
+    margin-top: 1.5rem;
     font-size: 1.05rem;
+}
+
+main > h2:first-child {
+    margin-top: 0;
 }
 
 main p {
@@ -232,7 +216,7 @@ hr {
     border-top: 1px solid var(--border);
 }
 
-hr + section {
+hr + h2 {
     margin-top: 1.5rem;
 }
 
@@ -252,6 +236,111 @@ code {
     font-size: 0.92em;
 }
 
+pre {
+    margin: 0 0 1rem;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--code-bg);
+    font-size: 0.875rem;
+    line-height: 1.55;
+    scrollbar-color: var(--muted) transparent;
+    scrollbar-width: thin;
+    tab-size: 4;
+}
+
+pre code {
+    display: block;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: inherit;
+    line-height: inherit;
+    white-space: pre;
+}
+
+/* Prism syntax highlighting tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: var(--code-comment);
+    font-style: italic;
+}
+
+.token.punctuation {
+    color: var(--code-punctuation);
+}
+
+.token.namespace {
+    opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: var(--code-number);
+}
+
+.token.macro {
+    color: var(--text);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: var(--code-string);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.token.variable {
+    color: var(--code-variable);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword,
+.token.directive-hash {
+    color: var(--code-keyword);
+}
+
+.token.function,
+.token.class-name,
+.token.generic-function {
+    color: var(--code-function);
+}
+
+.token.regex,
+.token.important {
+    color: var(--code-variable);
+}
+
+.token.important,
+.token.bold {
+    font-weight: 700;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
 sup {
     line-height: 0;
 }
@@ -261,7 +350,7 @@ abbr[title] {
     cursor: help;
 }
 
-section[id] {
+main [id] {
     scroll-margin-top: 1.5rem;
 }
 
@@ -319,11 +408,6 @@ footer a {
         color: #000;
     }
 
-    .skip-link,
-    #contents {
-        display: none;
-    }
-
     header,
     footer,
     #layout {
@@ -343,7 +427,7 @@ footer a {
         display: none;
     }
 
-    main section {
+    main h2 {
         margin-top: 1.5rem;
     }
 

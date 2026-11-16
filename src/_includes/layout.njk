@@ -12,74 +12,84 @@
             <h1>{{ title }}</h1>
         </header>
         <div id="layout">
+            {% set home = "/" | url %}
+            {% set algorithms = "/algorithms/" | url %}
             <nav aria-labelledby="contents-title" id="contents">
                 <details open>
                     <summary id="contents-title">Contents</summary>
                     <ul role="list">
-                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="{{ home }}#introduction">Introduction</a></li>
                         <li>
-                            <a href="#data-structures">Data Structures</a>
+                            <a
+                                href="{{ home }}#data-structures"
+                                {% if page.url == home %}aria-current="page"{% endif %}
+                                >Data Structures</a
+                            >
                             <ul role="list">
-                                <li><a href="#arrays">Arrays</a></li>
+                                <li><a href="{{ home }}#arrays">Arrays</a></li>
                                 <li>
-                                    <a href="#linked-lists">Linked Lists</a>
+                                    <a href="{{ home }}#linked-lists">Linked Lists</a>
                                 </li>
-                                <li><a href="#stacks">Stacks</a></li>
-                                <li><a href="#queues">Queues</a></li>
-                                <li><a href="#trees">Trees</a></li>
-                                <li><a href="#graphs">Graphs</a></li>
+                                <li><a href="{{ home }}#stacks">Stacks</a></li>
+                                <li><a href="{{ home }}#queues">Queues</a></li>
+                                <li><a href="{{ home }}#trees">Trees</a></li>
+                                <li><a href="{{ home }}#graphs">Graphs</a></li>
                                 <li>
-                                    <a href="#advanced-data-structures"
+                                    <a href="{{ home }}#advanced-data-structures"
                                         >Advanced Data Structures</a
                                     >
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#algorithms">Algorithms</a>
+                            <a
+                                href="{{ algorithms }}"
+                                {% if page.url == algorithms %}aria-current="page"{% endif %}
+                                >Algorithms</a
+                            >
                             <ul role="list">
                                 <li>
-                                    <a href="#searching-algorithms"
+                                    <a href="{{ algorithms }}#searching-algorithms"
                                         >Searching Algorithms</a
                                     >
                                     <ul role="list">
                                         <li>
-                                            <a href="#linear-search"
+                                            <a href="{{ algorithms }}#linear-search"
                                                 >Linear Search</a
                                             >
                                         </li>
                                         <li>
-                                            <a href="#binary-search"
+                                            <a href="{{ algorithms }}#binary-search"
                                                 >Binary Search</a
                                             >
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#sorting-algorithms"
+                                    <a href="{{ algorithms }}#sorting-algorithms"
                                         >Sorting Algorithms</a
                                     >
                                     <ul role="list">
                                         <li>
-                                            <a href="#bubble-sort"
+                                            <a href="{{ algorithms }}#bubble-sort"
                                                 >Bubble Sort</a
                                             >
                                         </li>
                                         <li>
-                                            <a href="#selection-sort"
+                                            <a href="{{ algorithms }}#selection-sort"
                                                 >Selection Sort</a
                                             >
                                         </li>
                                         <li>
-                                            <a href="#insertion-sort"
+                                            <a href="{{ algorithms }}#insertion-sort"
                                                 >Insertion Sort</a
                                             >
                                         </li>
                                         <li>
-                                            <a href="#merge-sort">Merge Sort</a>
+                                            <a href="{{ algorithms }}#merge-sort">Merge Sort</a>
                                         </li>
                                         <li>
-                                            <a href="#quick-sort">Quick Sort</a>
+                                            <a href="{{ algorithms }}#quick-sort">Quick Sort</a>
                                         </li>
                                     </ul>
                                 </li>
