@@ -1,21 +1,21 @@
 :root {
     color-scheme: light;
-    --bg: #cbc;
-    --surface: #0f0;
-    --text: #000;
-    --muted: #222;
-    --link: #800;
-    --link-hover: #00f;
-    --border: #333;
-    --code-bg: #fed;
-    --code-comment: #aaa;
-    --code-keyword: #f00;
-    --code-string: #0f0;
-    --code-number: #00f;
-    --code-function: #a0a;
-    --code-variable: #111;
-    --code-punctuation: #000;
-    --focus: #ccc;
+    --bg: #ffffff;
+    --surface: #f8f9fa;
+    --text: #212529;
+    --muted: #6c757d;
+    --link: #0d6efd;
+    --link-hover: #0a58ca;
+    --border: #dee2e6;
+    --code-bg: #f1f3f5;
+    --code-comment: #adb5bd;
+    --code-keyword: #cf222e;
+    --code-string: #0a3069;
+    --code-number: #0550ae;
+    --code-function: #8250df;
+    --code-variable: #953800;
+    --code-punctuation: #24292f;
+    --focus: #86b7fe;
 }
 
 *,
